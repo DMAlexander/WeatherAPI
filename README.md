@@ -1,8 +1,7 @@
 # WeatherAPI
 Pulling weather data from external API and saving it in a database
 
-#Setting up the App
-#Database
+#Setting up the Database
 ---------
 _> Download PostgreSQL
 _> In command line, navigate to project root folder
@@ -20,7 +19,6 @@ _> In command line, navigate to project 'bin' folder 'Weather_API\bin'
 _> type ‘node appurl.js’
 _> Should get notification in command prompt window that the server has started
 
-#App Functionality
 #Index.html
 -----------
 _> Open a browser (preferably Chrome) and navigate to localhost:3000/

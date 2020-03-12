@@ -10,13 +10,14 @@ app.use(express.json({ limit: '1mb' }));
 var weatherRouter = express.Router();
 var postgres = require('./lib/postgres');
 
-//1) GET ALL ROWS
+/*
 app.get('/', (request, response) => {
 // database.find({}, (err, data) => {
     response.json('Mission accomplished');
 });
+*/
 
-
+//1) GET ALL ROWS
 weatherRouter.get('/', function(req, res) { 
     var sql = 'SELECT * FROM weatherdata';
       postgres.client.query(sql, function(err, result) {
@@ -64,22 +65,20 @@ weatherRouter.post('/', function(req, res) {
 });
 
   //3) GET BY ID
-  weatjerRouter.get('/:id', getId, function(req, res) {
+  weatherRouter.get('/:id', getId, function(req, res) {
     res.json(req.weatherData);
   });
 
   //4) UPDATE ROWS
-  weatherRouter.patch('/:id', getId, function(req, res) {
+  weatherRouter.patch('/:id/:comment', function(req, res) {
     console.log("Lets update!");
-    console.log('Weather data: ' +req.weatherData);
     var sql = 'UPDATE weatherdata SET COMMENT = $1 WHERE id = $2 ';
     console.log(sql);
-  //  var weatherId = req.params.id;
-    var weatherId = req.weatherData.id;
+    var weatherId = req.body.id;
     console.log("weatherId: " + weatherId);
     var data = [
       req.body.comment,
-      weatherId
+      req.body.id
     ];
     console.log('Comment' +req.body.comment) +
       'Weather Id' + weatherId;
@@ -89,8 +88,7 @@ weatherRouter.post('/', function(req, res) {
         console.error(err);
         return res.json({ errors: ['Could not update weatherData']});
       }
-  
- //     var weatherId = result.rows[0].id;
+
       var sql = 'SELECT * FROM weatherData WHERE id = $1';
       postgres.client.query(sql, [ weatherId ], function(err, result) {
         if (err) {

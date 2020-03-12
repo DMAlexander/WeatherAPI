@@ -7,25 +7,18 @@
     </head>
     <body>
         <h1>Item Information</h1>
-    <div><a href="all.html">All Saved Entries</a></div>
+        <div><a href="index.html">Search Weather Page</a></div>
+        <div><a href="all.html">All Saved Entries</a></div>
+        <p>-------------------------------</p>
+
         <h3>Item Data</h3>
-<!--
-        <p>
-            <input id="comment" value="Sample Comment" />
-        </p>
-    -->
-    <!--
-        <p>
-            <button id="saveData">Save Data</button>
-        </p>
-    -->
 
     <script src="item.js"></script>
 
     </body>
     <script>
         getItemData();
-    //    myFunction();
+ 
             async function getItemData() {
                 
                 //Getting id parameter...
@@ -34,17 +27,15 @@
                 var id = params.get('id');
                 var initialComment = params.get('comment');
 
-      //          const response = await fetch('/api/' + id);
+
                 const response = await fetch('/weather/' + id);
                 const data = await response.json();
 
-          //      for(item of data) {
                     
-                    const temp = document.getElementById('div');
-                    const tempLow = document.getElementById('div');
-                    const tempHigh = document.getElementById('div');
+                const temp = document.getElementById('div');
+                const tempLow = document.getElementById('div');
+                const tempHigh = document.getElementById('div');
                     const windSpeed = document.getElementById('div');
-           //         const id = document.getElementById('div');
                     const root = document.createElement('div');
 
                     const date = document.createElement('div');
@@ -57,11 +48,9 @@
 
                     var newdiv = document.createElement('div');
                     newdiv.setAttribute('style', 'page-break-after:always');
-            //        document.body.append(newdiv);
 
-            //        commentsend.textContent = 'User Comment: ' + item.comment;
                     tempSend.textContent = 'Current Temperature: ' + data.temp;
-//                    tempLowSend.textContent = 'Todays Low: ' + item.templow;
+
                     tempLowSend.textContent = 'Todays Low: ' + data.templow;
                     tempHighSend.textContent = 'Todays High: ' + data.temphigh;
                     windSpeedSend.textContent = 'Wind Speed: ' + data.windspeed;
@@ -69,17 +58,13 @@
                     const dateString = new Date(data.timestamp).toLocaleString();
                     date.textContent = 'Record Created On: ' + dateString;
 
-   //                 idSend.setAttribute('style', 'hidden:true');
                     idSend.setAttribute("hidden", true);
-
-               //     var iddd = data[0].id
 
                     var input = document.createElement('input');
                     var commentText = document.createTextNode(data.comment);
                     input.appendChild(commentText);
                     input.id = 'comment';
                     input.value = data.comment;
-                //    document.body.appendChild(input);
 
                     var updateButton = document.createElement('button');
                     var updateButtonText = document.createTextNode("Update Comment");
@@ -98,8 +83,6 @@
                     document.body.append(root);
                     
           }
-        //        console.log(data);
-        //    }
 
             document.addEventListener('click', async function(e) {
                 if(e.target && e.target.id == 'updateComment'){
@@ -111,13 +94,6 @@
                     var initialComment = params.get('comment');
                     var comment = document.getElementById('comment').value
 
-                    /*
-                    const api_url = '/apiUpd/' + initialComment + '/' + comment;
-                    const response = await fetch(api_url);
-                    const json = await response.json();
-                    console.log(json);
-                    */
-                    
                     const data = { id, initialComment, comment }
                     const options = {
                         method: 'PATCH',
@@ -126,8 +102,7 @@
                         },
                         body: JSON.stringify(data)
                     }
-            //        const response = await fetch('/api/', options);
-                    const response = await fetch('/weather/' + id);
+                    const response = await fetch('/weather/' + id + '/' + comment, options);
                     const json = await response.json();
                     console.log(json);
                     
@@ -136,9 +111,8 @@
 
             document.addEventListener('click', async function(e) {
                 if(e.target && e.target.id == 'deleteRow'){
-//            document.getElementById('deleteRow').addEventListener('click', async event  => {
 
-                    //Getting id parameter...
+                //Getting id parameter...
                 const params = new
                 URLSearchParams(window.location.search)
                 var id = params.get('id');
@@ -151,84 +125,12 @@
                     },
                     body: JSON.stringify(data)
                 }
-            //        const response = await fetch('/api/', options);
+
                 const response = await fetch('weather/' + id, options);
                 const json = await response.json();
                 console.log(json);
             }
         });
-
-                /*
-                var temp =   document.getElementById('temperature').textContent
-                var tempLow = document.getElementById('tempLow').textContent
-                var tempHigh = document.getElementById('tempHigh').textContent
-                var windSpeed = document.getElementById('windSpeed').textContent
-                var comment = document.getElementById('comment').value
-                var id = document.getElementById('id').value
-
-                const data = { id }
-                const options = {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                }
-                const response = await fetch('weather/', options);
-                const json = await response.json();
-                console.log(json);
-                });
-
-            /*
-document.getElementById("updateComment").onclick = function() {myFunction()};
-
-function myFunction() {
-    document.getElementById('updateComment').addEventListener('click', async event  => {
-
-var temp =   document.getElementById('temperature').textContent
-var tempLow = document.getElementById('tempLow').textContent
-var tempHigh = document.getElementById('tempHigh').textContent
-var windSpeed = document.getElementById('windSpeed').textContent
-var comment = document.getElementById('comment').value
-
-const data = { temp, tempLow, tempHigh, windSpeed, comment }
-const options = {
-    method: 'PATCH',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-}
-const response = await fetch('/api', options);
-const json = await response.json();
-console.log(json);
-});
-}
-*/
-            /*
-            async function clickEvent() {
-                document.getElementById('updateComment').addEventListener('click', async event  => {
-
-var temp =   document.getElementById('temperature').textContent
-var tempLow = document.getElementById('tempLow').textContent
-var tempHigh = document.getElementById('tempHigh').textContent
-var windSpeed = document.getElementById('windSpeed').textContent
-var comment = document.getElementById('comment').value
-
-const data = { temp, tempLow, tempHigh, windSpeed, comment }
-const options = {
-    method: 'PATCH',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-}
-const response = await fetch('/api', options);
-const json = await response.json();
-console.log(json);
-});
-            }
-*/
     </script>
 </html>
 </html>

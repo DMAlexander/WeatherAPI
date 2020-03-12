@@ -8,10 +8,10 @@
     <body>
         <h1>All Items</h1>
         <div><a href="index.html">Search Weather Page</a></div>
+        <p>-------------------------------</p>
         <script>
             getAllData();
             async function getAllData() {
-           //     const response = await fetch('/api');
                 const response = await fetch('/weather');
                 const data = await response.json();
 
@@ -21,7 +21,6 @@
                     const tempLow = document.getElementById('div');
                     const tempHigh = document.getElementById('div');
                     const windSpeed = document.getElementById('div');
-                    const id = document.getElementById('div');
                     const root = document.createElement('div');
 
                     const date = document.createElement('div');
@@ -30,86 +29,35 @@
                     const tempLowSend = document.createElement('div');
                     const tempHighSend = document.createElement('div');
                     const windSpeedSend = document.createElement('div');
+                    const divider = document.createElement('div');
                     
                     var a = document.createElement('a');
                     var linkText = document.createTextNode(item.id);
                     a.appendChild(linkText);
-                    a.title = "my title text";
-              //      a.href = "item.html/" + item._id;
-              //      a.href = "item/?"
+                    a.title = "Item Information";
                     a.href = "http://localhost:3000/item.html?id=" + item.id + "&comment=" + item.comment
                     document.body.appendChild(a);
 
-                    /*
-                    var deletelink = document.createElement('a');
-                    var linkText = document.createTextNode(item.id);
-                    deletelink.setAttribute('id', 'deleteLink');
-                    deletelink.appendChild(linkText);
-                    deletelink.title = 'delete row';
-                    deletelink.href = 'http://localhost:3000/'
-                    */
-//                    deletelink.href = 'http://localhost:3000/all.html?id=' + item.id + '&comment=' + item.comment
-                    
-
-                //    var url = "http://localhost:3000/?id=" + item._id;
-                //    var element = document.getElementById('div');
-                //    element.setAttribute("href",url)
-
-   //                 document.body.appendChild(idSendH);
-
                     const idSend = document.createElement('div');
 
-                    var newdiv = document.createElement('div');
-                    newdiv.setAttribute('style', 'page-break-after:always');
-            //        document.body.append(newdiv);
-
+                    a.textContent = 'Row id: ' + item.id;
                     commentsend.textContent = 'User Comment: ' + item.comment;
                     tempSend.textContent = 'Current Temperature: ' + item.temp;
                     tempLowSend.textContent = 'Todays Low: ' + item.templow;
                     tempHighSend.textContent = 'Todays High: ' + item.temphigh;
                     windSpeedSend.textContent = 'Wind Speed: ' + item.windspeed;
-               //     idSendH.textContent = 'Link example';
                     idSend.textContent = 'Row id: ' + item.id;
                     const dateString = new Date(item.timestamp).toLocaleString();
                     date.textContent = 'Record Created On: ' + dateString;
+                    divider.textContent = '-------------------------------';
 
-   //                 idSend.setAttribute('style', 'hidden:true');
-   //                 idSend.setAttribute("hidden", true);
-
-               //     var iddd = data[0].id
-
-                    root.append(commentsend, tempSend, tempLowSend, tempHighSend, windSpeedSend, a, date, idSend, newdiv);
+                    root.append(a, tempSend, tempLowSend, tempHighSend, windSpeedSend, commentsend, divider);
                     root.append(' ');
                     document.body.append(root);
-
-            //        <a href="item.html/id">item page</a>
                     
                 }
                 console.log(data);
             }
-
-            /*
-            document.getElementById('deleteLink').addEventListener('click', async event  => {
-
-            var temp =   document.getElementById('temperature').textContent
-            var tempLow = document.getElementById('tempLow').textContent
-            var tempHigh = document.getElementById('tempHigh').textContent
-            var windSpeed = document.getElementById('windSpeed').textContent
-            var comment = document.getElementById('comment').value
-
-            const data = { temp, tempLow, tempHigh, windSpeed, comment }
-            const options = {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }
-            const response = await fetch('weather/', options);
-            const json = await response.json();
-            console.log(json);
-            });
-            */
 
      </script>
     </body>

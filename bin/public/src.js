@@ -1,8 +1,11 @@
+//Searching weather data of a city when 'Search City' Button is selected
 document.getElementById('cityButton').addEventListener('click', async event  => {
     var city = document.getElementById('city').value
+    var state = document.getElementById('state').value
     console.log(city);
+    console.log(state);
 
-    const api_url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=6e37b7da9b424749ca5711fe1a148b5a&units=imperial'
+    const api_url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + ',' + state + '&appid=6e37b7da9b424749ca5711fe1a148b5a&units=imperial'
     const response = await fetch(api_url);
     const json = await response.json();
 
@@ -27,6 +30,7 @@ document.getElementById('cityButton').addEventListener('click', async event  => 
     console.log(json);
 });
 
+//Saves weather data into the database
 document.getElementById('saveData').addEventListener('click', async event  => {
 
     var temp =   document.getElementById('temperature').textContent

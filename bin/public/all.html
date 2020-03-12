@@ -9,57 +9,7 @@
         <h1>All Items</h1>
         <div><a href="index.html">Search Weather Page</a></div>
         <p>-------------------------------</p>
-        <script>
-            getAllData();
-            async function getAllData() {
-                const response = await fetch('/weather');
-                const data = await response.json();
-
-                for(item of data) {
-                    
-                    const temp = document.getElementById('div');
-                    const tempLow = document.getElementById('div');
-                    const tempHigh = document.getElementById('div');
-                    const windSpeed = document.getElementById('div');
-                    const root = document.createElement('div');
-
-                    const date = document.createElement('div');
-                    const commentsend = document.createElement('div');
-                    const tempSend = document.createElement('div');
-                    const tempLowSend = document.createElement('div');
-                    const tempHighSend = document.createElement('div');
-                    const windSpeedSend = document.createElement('div');
-                    const divider = document.createElement('div');
-                    
-                    var a = document.createElement('a');
-                    var linkText = document.createTextNode(item.id);
-                    a.appendChild(linkText);
-                    a.title = "Item Information";
-                    a.href = "http://localhost:3000/item.html?id=" + item.id + "&comment=" + item.comment
-                    document.body.appendChild(a);
-
-                    const idSend = document.createElement('div');
-
-                    a.textContent = 'Row id: ' + item.id;
-                    commentsend.textContent = 'User Comment: ' + item.comment;
-                    tempSend.textContent = 'Current Temperature: ' + item.temp;
-                    tempLowSend.textContent = 'Todays Low: ' + item.templow;
-                    tempHighSend.textContent = 'Todays High: ' + item.temphigh;
-                    windSpeedSend.textContent = 'Wind Speed: ' + item.windspeed;
-                    idSend.textContent = 'Row id: ' + item.id;
-                    const dateString = new Date(item.timestamp).toLocaleString();
-                    date.textContent = 'Record Created On: ' + dateString;
-                    divider.textContent = '-------------------------------';
-
-                    root.append(a, tempSend, tempLowSend, tempHighSend, windSpeedSend, commentsend, divider);
-                    root.append(' ');
-                    document.body.append(root);
-                    
-                }
-                console.log(data);
-            }
-
-     </script>
+        <script src="all.js"></script>
     </body>
 </html>
 </html>

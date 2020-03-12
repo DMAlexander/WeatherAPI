@@ -17,16 +17,11 @@ async function getItemData() {
     const windSpeedSend = document.createElement('div');
     const idSend = document.createElement('div');
 
-    var newdiv = document.createElement('div');
-    newdiv.setAttribute('style', 'page-break-after:always');
-
     tempSend.textContent = 'Current Temperature: ' + data.temp;
-
     tempLowSend.textContent = 'Todays Low: ' + data.templow;
     tempHighSend.textContent = 'Todays High: ' + data.temphigh;
     windSpeedSend.textContent = 'Wind Speed: ' + data.windspeed;
     idSend.textContent = 'Row id: ' + data.id;
-    idSend.setAttribute("hidden", true);
 
     var input = document.createElement('input');
     var commentText = document.createTextNode(data.comment);
@@ -46,7 +41,7 @@ async function getItemData() {
     deleteButton.id = 'deleteRow';
     deleteButton.value = 'delete';
  
-    root.append(tempSend, tempLowSend, tempHighSend, windSpeedSend, idSend, newdiv, input, updateButton, deleteButton);
+    root.append(idSend, tempSend, tempLowSend, tempHighSend, windSpeedSend, input, updateButton, deleteButton);
     root.append(' ');
     document.body.append(root);
                     
@@ -61,7 +56,6 @@ document.addEventListener('click', async function(e) {
     var id = params.get('id');
     var initialComment = params.get('comment');
     var comment = document.getElementById('comment').value
-    document.getElementById('updateSuccess').style.display = "block";
 
     const data = { id, initialComment, comment }
     const options = {

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weather App</title>
+    </head>
+    <body>
+        <h1>Item Information</h1>
+    <div><a href="all.html">All Saved Entries</a></div>
+        <h3>Item Data</h3>
+<!--
+        <p>
+            <input id="comment" value="Sample Comment" />
+        </p>
+    -->
+    <!--
+        <p>
+            <button id="saveData">Save Data</button>
+        </p>
+    -->
+
+    <script src="item.js"></script>
+
+    </body>
+    <script>
+        getItemData();
+    //    myFunction();
+            async function getItemData() {
+                
+                //Getting id parameter...
+                const params = new 
+                URLSearchParams(window.location.search)
+                var id = params.get('id');
+                var initialComment = params.get('comment');
+
+      //          const response = await fetch('/api/' + id);
+                const response = await fetch('/weather/' + id);
+                const data = await response.json();
+
+          //      for(item of data) {
+                    
+                    const temp = document.getElementById('div');
+                    const tempLow = document.getElementById('div');
+                    const tempHigh = document.getElementById('div');
+                    const windSpeed = document.getElementById('div');
+           //         const id = document.getElementById('div');
+                    const root = document.createElement('div');
+
+                    const date = document.createElement('div');
+                    const commentsend = document.createElement('div');
+                    const tempSend = document.createElement('div');
+                    const tempLowSend = document.createElement('div');
+                    const tempHighSend = document.createElement('div');
+                    const windSpeedSend = document.createElement('div');
+                    const idSend = document.createElement('div');
+
+                    var newdiv = document.createElement('div');
+                    newdiv.setAttribute('style', 'page-break-after:always');
+            //        document.body.append(newdiv);
+
+            //        commentsend.textContent = 'User Comment: ' + item.comment;
+                    tempSend.textContent = 'Current Temperature: ' + data.temp;
+//                    tempLowSend.textContent = 'Todays Low: ' + item.templow;
+                    tempLowSend.textContent = 'Todays Low: ' + data.templow;
+                    tempHighSend.textContent = 'Todays High: ' + data.temphigh;
+                    windSpeedSend.textContent = 'Wind Speed: ' + data.windspeed;
+                    idSend.textContent = 'Row id: ' + data.id;
+                    const dateString = new Date(data.timestamp).toLocaleString();
+                    date.textContent = 'Record Created On: ' + dateString;
+
+   //                 idSend.setAttribute('style', 'hidden:true');
+                    idSend.setAttribute("hidden", true);
+
+               //     var iddd = data[0].id
+
+                    var input = document.createElement('input');
+                    var commentText = document.createTextNode(data.comment);
+                    input.appendChild(commentText);
+                    input.id = 'comment';
+                    input.value = data.comment;
+                //    document.body.appendChild(input);
+
+                    var updateButton = document.createElement('button');
+                    var updateButtonText = document.createTextNode("Update Comment");
+                    updateButton.appendChild(updateButtonText);
+                    updateButton.id = 'updateComment';
+                    updateButton.value = 'update';
+
+                    var deleteButton = document.createElement('button');
+                    var deleteButtonText = document.createTextNode("Delete row");
+                    deleteButton.appendChild(deleteButtonText);
+                    deleteButton.id = 'deleteRow';
+                    deleteButton.value = 'delete';
+ 
+                    root.append(tempSend, tempLowSend, tempHighSend, windSpeedSend, date, idSend, newdiv, input, updateButton, deleteButton);
+                    root.append(' ');
+                    document.body.append(root);
+                    
+          }
+        //        console.log(data);
+        //    }
+
+            document.addEventListener('click', async function(e) {
+                if(e.target && e.target.id == 'updateComment'){
+                    console.log("Hello world!");
+                    
+                    const params = new 
+                    URLSearchParams(window.location.search)
+                    var id = params.get('id');
+                    var initialComment = params.get('comment');
+                    var comment = document.getElementById('comment').value
+
+                    /*
+                    const api_url = '/apiUpd/' + initialComment + '/' + comment;
+                    const response = await fetch(api_url);
+                    const json = await response.json();
+                    console.log(json);
+                    */
+                    
+                    const data = { id, initialComment, comment }
+                    const options = {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    }
+            //        const response = await fetch('/api/', options);
+                    const response = await fetch('/weather/' + id);
+                    const json = await response.json();
+                    console.log(json);
+                    
+                    }
+                });
+
+            document.addEventListener('click', async function(e) {
+                if(e.target && e.target.id == 'deleteRow'){
+//            document.getElementById('deleteRow').addEventListener('click', async event  => {
+
+                    //Getting id parameter...
+                const params = new
+                URLSearchParams(window.location.search)
+                var id = params.get('id');
+
+                const data = { id }
+                const options = {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
+            //        const response = await fetch('/api/', options);
+                const response = await fetch('weather/' + id, options);
+                const json = await response.json();
+                console.log(json);
+            }
+        });
+
+                /*
+                var temp =   document.getElementById('temperature').textContent
+                var tempLow = document.getElementById('tempLow').textContent
+                var tempHigh = document.getElementById('tempHigh').textContent
+                var windSpeed = document.getElementById('windSpeed').textContent
+                var comment = document.getElementById('comment').value
+                var id = document.getElementById('id').value
+
+                const data = { id }
+                const options = {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
+                const response = await fetch('weather/', options);
+                const json = await response.json();
+                console.log(json);
+                });
+
+            /*
+document.getElementById("updateComment").onclick = function() {myFunction()};
+
+function myFunction() {
+    document.getElementById('updateComment').addEventListener('click', async event  => {
+
+var temp =   document.getElementById('temperature').textContent
+var tempLow = document.getElementById('tempLow').textContent
+var tempHigh = document.getElementById('tempHigh').textContent
+var windSpeed = document.getElementById('windSpeed').textContent
+var comment = document.getElementById('comment').value
+
+const data = { temp, tempLow, tempHigh, windSpeed, comment }
+const options = {
+    method: 'PATCH',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+}
+const response = await fetch('/api', options);
+const json = await response.json();
+console.log(json);
+});
+}
+*/
+            /*
+            async function clickEvent() {
+                document.getElementById('updateComment').addEventListener('click', async event  => {
+
+var temp =   document.getElementById('temperature').textContent
+var tempLow = document.getElementById('tempLow').textContent
+var tempHigh = document.getElementById('tempHigh').textContent
+var windSpeed = document.getElementById('windSpeed').textContent
+var comment = document.getElementById('comment').value
+
+const data = { temp, tempLow, tempHigh, windSpeed, comment }
+const options = {
+    method: 'PATCH',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+}
+const response = await fetch('/api', options);
+const json = await response.json();
+console.log(json);
+});
+            }
+*/
+    </script>
+</html>
+</html>

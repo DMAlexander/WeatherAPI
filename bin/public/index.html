@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weather App</title>
+    </head>
+    <body>
+        <h1>Weather App</h1>
+    <div><a href="all.html">All Saved Entries</a></div>
+        <h3>Search The Weather of a City</h3>
+            
+        <p>
+            <input id="city" value="Fargo"></input>
+        </p>
+        <p>
+            <button id="cityButton">Search City</button>
+        </p>
+
+        <h3 id="todaysWeather" hidden>Today's Weather</h3>
+
+  <!--  <p id="weatherInfo" hidden > -->
+    <p hidden id="temperatureLabel">Temperature:</p>
+    <p hidden id="temperature"></p>
+    <p hidden id="tempLowLabel">Today's Low:</p>
+    <p hidden id="tempLow"></p>
+    <p hidden id="tempHighLabel">Today's High:</p>
+    <p hidden id="tempHigh"></p>
+    <p hidden id="windSpeedLabel">Wind speed:</p>
+    <p hidden id="windSpeed"></p>
+        <p>
+            <input hidden id="comment" value="Sample Comment" />
+        </p>
+        <p>
+            <button hidden id="saveData">Save Data</button>
+        </p>
+
+        <script src="src.js"></script>
+
+    </body>
+</html>
+</html>

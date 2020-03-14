@@ -94,7 +94,7 @@ document.addEventListener('click', async function(e) {
     const response = await fetch('weather/' + id, options);
     const json = await response.json();
     console.log(json);
-    alert('Weather data item has been deleted.');
+    alert('Weather data row has been deleted.');
     window.location.href='http://localhost:3000/all.html';
     }
 });

@@ -50,4 +50,5 @@ document.getElementById('saveData').addEventListener('click', async event  => {
     const response = await fetch('weather/', options);
     const json = await response.json();
     console.log(json);
+    alert('Weather data row has been inserted.');
 });
